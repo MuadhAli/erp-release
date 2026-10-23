@@ -1,32 +1,40 @@
 ﻿# Madina Store ERP — Official Releases
 
-Official production release repository for **Madina Store ERP** desktop application.
+Official release repository for **Madina Store ERP** desktop application.
 
 ## 📦 Latest Release: v1.0.0
 
 - **Setup Installer:** [Madina-Store-ERP-Setup-1.0.0.exe](https://github.com/MuadhAli/erp-release/releases/latest)
-- **Architecture:** Windows x64 (NSIS Installer)
-- **Release Date:** October 2026
+- **Architecture:** Standalone Autonomous Stations (Every PC runs its own local DB + direct Cloud Sync)
+- **Installer Type:** Windows x64 (NSIS Installer)
 
 ---
 
-## 🚀 Installation & Setup Guide
+## 🚀 Standalone Installation Guide (Run on Every PC)
 
-### 1. Branch Server PC (Main PC in the shop)
-1. Install MariaDB (or MySQL) on port 3306 or 3307 as a Windows Service.
+Every billing counter / computer in the shop runs **100% independently**. There is **no branch master PC** and **no dependency between computers**. If any computer is turned off or restarted, other computers continue billing with zero interruption.
+
+### Setup Instructions for Each PC:
+1. Ensure MariaDB (or MySQL) is installed locally on the computer (127.0.0.1:3306).
 2. Run Madina-Store-ERP-Setup-1.0.0.exe.
-3. In Setup, select **Branch Server**, enter your Branch Code (e.g. MB), local DB credentials, and Cloud Hostinger sync details.
-4. Open port 4000 on Windows Firewall (Inbound Rules) so cashier tills on the LAN can reach it.
-
-### 2. Cashier Till PCs (Counters)
-1. Run Madina-Store-ERP-Setup-1.0.0.exe.
-2. In Setup, select **Till**, enter the Branch PC LAN address (e.g. http://192.168.1.50:4000) and Till Code (e.g. T2).
-3. **No MariaDB or database needed** on cashier tills!
+3. Fill in:
+   - **Branch Code:** e.g. MB or MA (identifies the store)
+   - **Counter / Till Code:** e.g. T1 on PC 1, T2 on PC 2, T3 on PC 3.
+     *(This makes every invoice number permanently unique: MB-T1-00001, MB-T2-00001, with zero collision!)*
+   - **Local DB:** Host 127.0.0.1, Port 3306, Database name, User, Password.
+   - **Cloud Sync:** Hostinger Cloud credentials (srv2214.hstgr.io).
+4. Click **Test connection** and **Save and start**.
 
 ---
 
-## 🔄 In-App Updates
-Users can check for the latest updates directly in the app:
-1. Click the **User Profile avatar** in the top navigation bar.
-2. Select **Check for Updates**.
-3. View the latest release notes and download the newest installer with one click!
+## ⚡ Direct Cloud Sync & Unique Invoice IDs
+- **Instant local billing:** Every bill generates its final, official invoice number immediately upon completion. No temporary IDs, no provisional bills.
+- **Direct Cloud Sync:** Every PC connects directly to the Hostinger Cloud DB to pull master prices/products and push sales whenever internet is available.
+
+---
+
+## 🔄 Check for Updates
+Users can update the software directly inside the app:
+1. Click the **Profile avatar** in the top navigation bar.
+2. Click **Check for Updates**.
+3. View changelog and download new .exe updates with one click.
